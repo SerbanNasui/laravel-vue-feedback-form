@@ -10899,3 +10899,10 @@ a.text-dark:focus {
   }
 }
 
+body {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  background: radial-gradient(circle, black 40%, fuchsia 79%, aqua 95%);
+}
+
