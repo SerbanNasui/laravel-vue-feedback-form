@@ -1914,9 +1914,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      selectedId: '',
       options: [{}]
     };
   },
@@ -1927,6 +1933,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('api/feedback').then(function (res) {
         _this.options = res.data;
       });
+    },
+    submitForm: function submitForm() {
+      axios.put("/api/feedback/".concat(this.selectedId));
+      console.log(this.selectedId);
     }
   },
   mounted: function mounted() {
@@ -37518,16 +37528,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "text-white" },
-    _vm._l(_vm.options, function(feedback) {
-      return _c("div", { key: feedback.id }, [
-        _vm._v(" " + _vm._s(feedback.title))
-      ])
-    }),
-    0
-  )
+  return _c("div", { staticClass: "text-white" }, [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submitForm($event)
+          }
+        }
+      },
+      [
+        _vm._l(_vm.options, function(feedback) {
+          return _c("div", { key: feedback.id }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedId,
+                  expression: "selectedId"
+                }
+              ],
+              attrs: { type: "radio", name: "status" },
+              domProps: {
+                value: feedback.id,
+                checked: _vm._q(_vm.selectedId, feedback.id)
+              },
+              on: {
+                change: function($event) {
+                  _vm.selectedId = feedback.id
+                }
+              }
+            }),
+            _vm._v(_vm._s(feedback.title) + "\n        ")
+          ])
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("Submit")]
+        )
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
