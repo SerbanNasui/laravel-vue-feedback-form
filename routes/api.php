@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('feedback', 'FeedbackController@index');
+Route::get('feedback/{id}', 'FeedbackController@show');
+Route::post('feedback', 'FeedbackController@store');
+Route::put('feedback/{id}', 'FeedbackController@update');
+Route::delete('feedback/{id}', 'FeedbackController@delete');
