@@ -9,6 +9,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Options</th>
                         <th scope="col">Nr. Votes</th>
+                        <th scope="col">Percentage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,11 @@
                         <td>
                             <div class="d-flex justify-content-center">
                                 {{feedback.votes}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                {{ ( feedback.votes/totalVotes*100).toFixed(2) }}%
                             </div>
                         </td>
                     </tr>
@@ -56,10 +62,12 @@
 <script>
     export default {
         data(){
+            const totalVotes = 0;
             return{
                 selectedId: '',
                 options:[{}],
-                checkSubmit: false
+                checkSubmit: false,
+                votes: ''
             }
         },
         methods: {
@@ -76,6 +84,14 @@
         },
         mounted() {
             this.getData()
+        },
+
+        computed: {
+            totalVotes: function(){
+                return _.reduce(this.options, function(ind, vote){
+                    return ind + vote.votes;
+                },0);
+            }
         }
     }
 </script>

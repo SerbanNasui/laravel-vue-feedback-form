@@ -1963,12 +1963,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
+    var totalVotes = 0;
     return {
       selectedId: '',
       options: [{}],
-      checkSubmit: false
+      checkSubmit: false,
+      votes: ''
     };
   },
   methods: {
@@ -1989,6 +1997,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getData();
+  },
+  computed: {
+    totalVotes: function totalVotes() {
+      return _.reduce(this.options, function (ind, vote) {
+        return ind + vote.votes;
+      }, 0);
+    }
   }
 });
 
@@ -37618,6 +37633,24 @@ var render = function() {
                         )
                       ]
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-center" },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(
+                              ((feedback.votes / _vm.totalVotes) * 100).toFixed(
+                                2
+                              )
+                            ) +
+                            "%\n                        "
+                        )
+                      ]
+                    )
                   ])
                 ])
               }),
@@ -37706,7 +37739,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Options")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nr. Votes")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nr. Votes")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Percentage")])
       ])
     ])
   },
