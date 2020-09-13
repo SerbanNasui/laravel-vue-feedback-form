@@ -14,7 +14,7 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        return Feedback::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Feedback::create($request->all());
     }
 
     /**
@@ -44,9 +44,9 @@ class FeedbackController extends Controller
      * @param  \App\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function show(Feedback $feedback)
+    public function show($id)
     {
-        //
+        return Feedback::find($id);
     }
 
     /**
@@ -67,9 +67,11 @@ class FeedbackController extends Controller
      * @param  \App\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Feedback $feedback)
+    public function update(Request $request, $id)
     {
-        //
+        $feedback = Feedback::findOrFail($id);
+        $feedback->votes++;
+        $feedback->save();
     }
 
     /**
